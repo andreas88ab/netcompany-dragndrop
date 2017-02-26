@@ -1,0 +1,52 @@
+extends: airbnb
+parser: babel-eslint
+plugins:
+  - react
+rules:
+  comma-dangle:
+    - error
+    - never
+  import/no-unresolved:
+    - warn
+  default-case:
+    - warn
+#  import/no-named-default:
+#    - warn
+#  react/jsx-tag-spacing:
+#    - warn
+#  react/no-array-index-key:
+#    - warn
+#  react/require-default-props:
+#    - warn
+  react/no-unused-prop-types:
+    - warn
+  class-methods-use-this:
+    - warn
+  react/no-find-dom-node:
+    - warn
+  no-param-reassign:
+    - warn
+  react/jsx-no-bind:
+    - warn
+  no-unused-vars:
+    - warn
+  react/jsx-filename-extension:
+    - off
+  react/forbid-prop-types:
+    - warn
+  max-len:
+    - off
+  linebreak-style:
+    - off
+  jsx-a11y/no-static-element-interactions: #TO BE REMOVED
+    - warn
+  no-plusplus:
+    - warn
+    - allowForLoopAfterthoughts: true
+  arrow-parens: #Reports false errors
+    - off
+
+globals:
+  document: true
+  navigator: true
+  window: true

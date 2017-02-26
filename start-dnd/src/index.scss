@@ -1,0 +1,18 @@
+@import 'calendar/calendar.scss';
+@import 'ionicons.css';
+$base: 20px;
+$font: $base/1.4;
+
+body {
+  margin: 0;
+}
+
+h1 {
+  color: red;
+}
+
+h2 {
+  font-style: normal;
+  font-size: $base;
+  line-height: $base*1.5;
+}

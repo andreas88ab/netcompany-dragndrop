@@ -1,0 +1,85 @@
+$base: 20px;
+$font: $base/1.4;
+$dayHeaderHeight: 6vh;
+
+.calendar {
+  // TODO: define the height of the parent component where calendar is used
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #E6E7E8;
+}
+
+.calendar-header-items {
+  height: $dayHeaderHeight;
+  line-height: $dayHeaderHeight;
+  font-style: normal;
+  font-size: calc(1vw + 1vh);
+}
+
+.calendar-content {
+  flex: 8;
+  display: flex;
+  flex-direction: row;
+}
+
+.intervals {
+  flex: 1;
+  height: 100%;
+}
+
+.calendar-content-events {
+  flex: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.calendar-content-events-day {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  border-left: 1px solid grey;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.interval {
+  height: 100px;
+}
+
+.calendar-content-snapBar {
+  height: 100%;
+}
+
+.calendar-content-events-days {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.events {
+  width: 100%;
+  height: 100%;
+  cursor: move;
+}
+
+.event {
+  width: 100%;
+  border: 2px solid black;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+
+
+
