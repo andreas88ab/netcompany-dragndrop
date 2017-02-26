@@ -1,9 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import 'moment/locale/nb';
+import DayContainer from './calendar/containers/CalendarContainer';
+import store from './store';
+import './index.scss';
 
-ReactDOM.render(
-  <App />,
+render(
+  <Provider store={store}>
+    <DayContainer />
+  </Provider>,
   document.getElementById('root')
 );
