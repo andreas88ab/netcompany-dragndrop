@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import shallowEqual from './shallowEqual';
+import shallowEqual from '../actions/shallowEqual';
 import Day from './Day';
+import CustomDragLayer from './CustomDragLayer';
 
 class CalendarContentEvents extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -15,6 +16,7 @@ class CalendarContentEvents extends Component {
 
     return (
       <div className="calendar-content-events-days">
+        <CustomDragLayer snapToGrid={false} />
         {
           lists.map((item, i) =>
             <Day
@@ -31,13 +33,8 @@ class CalendarContentEvents extends Component {
 }
 
 CalendarContentEvents.propTypes = {
-  intervals: PropTypes.arrayOf(PropTypes.shape()),
   lists: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   moveEvent: PropTypes.func.isRequired
-};
-
-CalendarContentEvents.defaultProps = {
-  intervals: []
 };
 
 export default DragDropContext(HTML5Backend)(CalendarContentEvents);

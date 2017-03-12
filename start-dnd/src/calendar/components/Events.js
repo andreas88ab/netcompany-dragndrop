@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
-import { DropTarget, DragSource } from 'react-dnd';
-import snapToGrid from './snapToGrid';
+import { DropTarget } from 'react-dnd';
+import snapToGrid from '../actions/snapToGrid';
 import DraggableEvent from './DraggableEvent';
-import shallowEqual from './shallowEqual';
+import shallowEqual from '../actions/shallowEqual';
 import {
   EVENT
 } from './ItemTypes';
 
 const specs = {
-  drop(props, monitor, component) {
+  drop(props, monitor) {
     document.getElementById(monitor.getItem().id).style.display = 'block';
     const delta = monitor.getDifferenceFromInitialOffset();
     const lastX = monitor.getItem().x;

@@ -13,8 +13,8 @@ const eventSource = {
     const { event, x } = props;
     const { id, title } = event;
     const { clientWidth, clientHeight } = findDOMNode(component);
-
-    return { id, title, event, x, clientWidth, clientHeight };
+    const y = 0;
+    return { id, title, event, x, y, clientWidth, clientHeight };
   },
   endDrag(props, monitor) {
     document.getElementById(monitor.getItem().id).style.display = 'block';
@@ -40,7 +40,7 @@ class DraggableEvent extends Component {
   }
 
   render() {
-    const { isDragging, connectDragSource, event } = this.props;
+    const { connectDragSource, event } = this.props;
     return connectDragSource(
       <div>
         <Event
@@ -54,9 +54,7 @@ class DraggableEvent extends Component {
 DraggableEvent.propTypes = {
   event: PropTypes.shape().isRequired,
   connectDragSource: PropTypes.func.isRequired,
-  connectDragPreview: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired,
-  x: PropTypes.number.isRequired
+  connectDragPreview: PropTypes.func.isRequired
 };
 
 export default DragSource(EVENT, eventSource, collectDragSource)(DraggableEvent);

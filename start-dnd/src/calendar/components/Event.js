@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import shallowEqual from './shallowEqual';
+import shallowEqual from '../actions/shallowEqual';
 
 function getStyles(props) {
-  const { left, top, isDragging, height } = props;
+  console.log(props);
+  const { top, height } = props;
   const transform = `translate3d(0, ${top}px, 0)`;
 
   return {
@@ -22,8 +23,6 @@ class Event extends Component {
   }
 
   render() {
-    const { title } = this.props;
-
     return (
       <div className="event" id={this.props.id} style={getStyles(this.props)}>
         {this.props.eventStartTime.format('DD.MM.YYYY-HH:mm')} - {this.props.eventEndTime.format('DD.MM.YYYY-HH:mm')}
@@ -33,7 +32,6 @@ class Event extends Component {
 }
 
 Event.propTypes = {
-  title: PropTypes.string.isRequired,
   eventEndTime: PropTypes.shape().isRequired,
   eventStartTime: PropTypes.shape().isRequired,
   id: PropTypes.number.isRequired

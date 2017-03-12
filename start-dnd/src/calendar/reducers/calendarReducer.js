@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { CHANGE_INTERVAL,
+import {
   STATUS_TYPE_1,
   STATUS_TYPE_2,
   STATUS_TYPE_3,
@@ -68,14 +68,21 @@ const defaultState = {
   ]
 };
 
+function getCollidingEvent(list, event, nextTop) {
+  return nextTop;
+}
+
 export default function calendarReducer(state = defaultState, action) {
   switch (action.type) {
     case MOVE_EVENT: {
       const newLists = state.lists;
-      const { lastX, lastTop, nextX, nextTop, id } = action;
+      const { lastX, nextX, nextTop, id } = action;
       const event = newLists[lastX].events.find((e) => e.id === id);
+
+      const newNextTop = getCollidingEvent(newLists[nextX], event, nextTop);
+
       const eventTemp = Object.assign({}, event, {
-        top: nextTop,
+        top: newNextTop,
         listNo: nextX
       });
       const index = newLists[lastX].events.indexOf(event);

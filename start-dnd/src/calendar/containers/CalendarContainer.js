@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { bindActionCreators } from 'redux';
 import shortId from 'shortid';
 import Calendar from '../components/Calendar';
 import showDayCalendar from '../actions/showDayCalendar';
@@ -28,10 +27,25 @@ function getEventEndTime(top, start, interval, height) {
   return start.clone().add('minute', (top / 100) * interval).add('minute', (height / 100) * interval);
 }
 
+function overlap(events, event) {
+  let shareSpotTemp = 1;
+  events.filter(e => e.id !== event.id).map(e2 => {
+    const alike = e2.top === event.top;
+    const overlapAndAfter = (e2.top + e2.height) > event.top && event.top > e2.top;
+    if (alike || overlapAndAfter) {
+      // TODO: Sett hvilken spot eventet skal ligge på
+      shareSpotTemp += shareSpotTemp;
+    }
+    return shareSpotTemp;
+  });
+  return Object.assign({}, event, {
+    shareSpot: shareSpotTemp
+  });
+}
+
 function getEventsWithStyling(start, end, list, intervalSize, intervalsTemp, days) {
-  return Object.assign({}, list, {
+  const day = Object.assign({}, list, {
     events: list.events.map((event) => {
-      console.log(event);
       const newStart = event.eventStartTime.clone().startOf('day').add('hour', start.hour()).add('minute', start.minute());
       const newEnd = event.eventEndTime.clone().startOf('day').add('hour', end.hour()).add('minute', end.minute());
       const totalPX = ((intervalSize * (intervalsTemp.length - 1)) / 60) * 100;
@@ -52,8 +66,8 @@ function getEventsWithStyling(start, end, list, intervalSize, intervalsTemp, day
         intervalSize,
         height);
       return Object.assign({}, event, {
+        key: shortId.generate(),
         top: event.top >= 0 ? event.top : topMarginTemp,
-        left: 0,
         height,
         eventStartTime: newEventStartDate,
         eventEndTime: newEventEndDate,
@@ -63,6 +77,13 @@ function getEventsWithStyling(start, end, list, intervalSize, intervalsTemp, day
       });
     })
   });
+  const newEventList = day.events.map(e => overlap(day.events, e));
+  console.log('newEventList', newEventList);
+  const day2 = Object.assign({}, day, {
+    events: newEventList
+  });
+  console.log('day', day, 'day2', day2);
+  return day2;
 }
 
 const mapStateToProps = (state) => {
@@ -78,7 +99,6 @@ const mapStateToProps = (state) => {
   const listsTemp = state.calendar.lists.map((list) =>
       getEventsWithStyling(start, end, list, intervalSize, intervalsTemp, days)
   );
-  console.log(listsTemp);
   return {
     lists: listsTemp,
     intervals: intervalsTemp
